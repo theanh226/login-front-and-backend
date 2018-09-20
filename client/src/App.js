@@ -1,37 +1,25 @@
 import React, { Component } from "react";
-
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
+import Landing from "./components/layout/Landing";
 import "./App.css";
-
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
 class App extends Component {
   render() {
     return (
-      <div className="container">
-        <div className="dropdown">
-          <a
-            className="btn btn-secondary dropdown-toggle"
-            href=""
-            role="button"
-            id="dropdownMenuLink"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Dropdown link
-          </a>
-
-          <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a className="dropdown-item" href="">
-              Action
-            </a>
-            <a className="dropdown-item" href="">
-              Another action
-            </a>
-            <a className="dropdown-item" href="">
-              Something else here
-            </a>
+      <Router>
+        <div className="App">
+          <Navbar />
+          <Route exact path="/" component={Landing} />
+          <div class="container">
+          <Route exact path="/login" component={ Login } />
+          <Route exact path="/register" component={ Register } />
           </div>
+          <Footer />
         </div>
-      </div>
+      </Router>
     );
   }
 }
