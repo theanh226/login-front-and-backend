@@ -6,6 +6,7 @@ import Landing from "./components/layout/Landing";
 import "./App.css";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
+import Successs from "./components/response/Success";
 class App extends Component {
   render() {
     return (
@@ -16,6 +17,7 @@ class App extends Component {
           <div className="container">
           <Route exact path="/login" component={ Login } />
           <Route exact path="/register" component={ Register } />
+          <Route exact path="/success" component={ Successs } />
           </div>
           <Footer />
         </div>

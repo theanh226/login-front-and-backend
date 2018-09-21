@@ -37,3 +37,9 @@ img {
 .form-control::placeholder {
   color: #bbb !important;
 }
+
+.position-footer-wapper{
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
