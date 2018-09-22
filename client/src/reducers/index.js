@@ -3,7 +3,7 @@ import authReducer from "./authReducer";
 import errorReducer from "./errorReducer";
 
 const rootReducer = combineReducers({
-  auth: authReducer,
+  auth:authReducer,
   errors: errorReducer
 });
 

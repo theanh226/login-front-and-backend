@@ -1,7 +1,10 @@
 import React, { Component } from "react";
-import axios from "axios";
+import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
 import classnames from "classnames";
-import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { registerUser } from '../../actions/authActions';
+
 
 class Register extends Component {
   constructor() {
@@ -11,19 +14,21 @@ class Register extends Component {
       email: "",
       password: "",
       password2: "",
-      onRedirect: "",
       errors: {}
     };
-
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onChange(e) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
+
+  onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
-  }
+  };
 
-  onSubmit(e) {
+  onSubmit = e => {
     e.preventDefault();
 
     const newUser = {
@@ -33,19 +38,12 @@ class Register extends Component {
       password2: this.state.password2
     };
 
-    axios
-      .post("/api/users/register", newUser)
-      .then(res => this.setState({ onRedirect: res.status }))
-      .catch(err => this.setState({ errors: err.response.data }));
-  }
+    this.props.registerUser(newUser, this.props.history);
+  };
 
   render() {
-    const { errors,onRedirect } = this.state;
-    console.log(onRedirect);
-    if (onRedirect === 200) {
-      console.log("Redirect");
-      return <Redirect to="/success" />;
-    }
+    const { errors } = this.state;
+
     return (
       <div className="register">
         <div className="container">
@@ -85,7 +83,7 @@ class Register extends Component {
                   {errors.email && (
                     <div className="invalid-feedback">{errors.email}</div>
                   )}
-                  <small className="form-text text-muted d-none">
+                  <small className="form-text text-muted">
                     This site uses Gravatar so if you want a profile image, use
                     a Gravatar email
                   </small>
@@ -130,4 +128,15 @@ class Register extends Component {
   }
 }
 
-export default Register;
+Register.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(mapStateToProps, { registerUser })(withRouter(Register));
