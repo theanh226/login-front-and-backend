@@ -1,4 +1,5 @@
 import * as Types from "./../actions/types";
+import isEmpty from '../validation/is-empty';
 
 const initialState = {
   isAuthenticated: false,
@@ -10,7 +11,8 @@ export default function(state = initialState, action) {
     case Types.SET_CURRENT_USER:
       return {
         ...state,
-        new_user_regiseter: action.payload
+        isAuthenticated: !isEmpty(action.payload),
+        user: action.payload
       };
     default:
       return state;

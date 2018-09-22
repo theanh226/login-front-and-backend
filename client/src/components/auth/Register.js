@@ -3,8 +3,7 @@ import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import classnames from "classnames";
 import { connect } from "react-redux";
-import { registerUser } from '../../actions/authActions';
-
+import { registerUser } from "../../actions/authActions";
 
 class Register extends Component {
   constructor() {
@@ -16,6 +15,12 @@ class Register extends Component {
       password2: "",
       errors: {}
     };
+  }
+
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/");
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -51,7 +56,7 @@ class Register extends Component {
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Sign Up</h1>
               <p className="lead text-center">
-                Create your DevConnector account
+                Create your enterprise account
               </p>
               <form noValidate onSubmit={this.onSubmit}>
                 <div className="form-group">
@@ -83,10 +88,6 @@ class Register extends Component {
                   {errors.email && (
                     <div className="invalid-feedback">{errors.email}</div>
                   )}
-                  <small className="form-text text-muted">
-                    This site uses Gravatar so if you want a profile image, use
-                    a Gravatar email
-                  </small>
                 </div>
                 <div className="form-group">
                   <input
@@ -139,4 +140,7 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { registerUser })(withRouter(Register));
+export default connect(
+  mapStateToProps,
+  { registerUser }
+)(withRouter(Register));
