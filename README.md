@@ -1,18 +1,18 @@
 # login-front-and-backend
 
-# Install dependencies for server
+<h4>Install dependencies for server</h4>
 npm install
 
-# Install dependencies for client
+<h4> Install dependencies for client </h4>
 npm run client-install
 
-# Run the client & server with concurrently
+<h4>Run the client & server with concurrently</h4>
 npm run dev
 
-# Run the Express server only
+<h4> Run the Express server only</h4>
 npm run server
 
-# Run the React client only
+<h4> Run the React client only</h4>
 npm run client
 
-# Server runs on http://localhost:5000 and client on http://localhost:3000
+<p> Server runs on http://localhost:5000 and client on http://localhost:3000</p>
