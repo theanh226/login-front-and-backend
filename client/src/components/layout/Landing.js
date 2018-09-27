@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
-import classnames from "classnames";
+
 class Landing extends Component {
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
@@ -10,7 +10,7 @@ class Landing extends Component {
     }
   }
   render() {
-    const { isAuthenticated, user } = this.props.auth;
+    const { isAuthenticated, currentUser } = this.props.auth;
     return (
       <div>
         <div className="landing">
@@ -20,7 +20,7 @@ class Landing extends Component {
                 <div className="col-md-12 text-center">
                   <h1 className="display-3 mb-4">
                     {" "}
-                    {isAuthenticated ? "Welcome "+user.name : "The Corp"}{" "}
+                    {isAuthenticated ? "Welcome "+ currentUser.name : "The Corp"}{" "}
                   </h1>
                   <p className="lead">
                     {" "}

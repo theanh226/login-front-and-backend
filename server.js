@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 
 const users = require("./routes/api/users");
+const profile = require("./routes/api/profile");
 const passport = require("passport");
 
 const app = express();
@@ -38,6 +39,9 @@ require("./config/passport")(passport);
 // Use Routes
 app.use("/api/users", users);
 
+// Profile Routes
+
+app.use("/api/profile", profile);
 
 const port = process.env.PORT || 5000;
 

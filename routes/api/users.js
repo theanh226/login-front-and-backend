@@ -22,6 +22,7 @@ router.get("/test", (req, res) => res.json({ msg: "Users Works" }));
 // @desc    Register user
 // @access  Public
 router.post("/register", (req, res) => {
+
   const { errors, isValid } = validateRegisterInput(req.body);
 
   // Check Validation
@@ -65,6 +66,7 @@ router.post("/register", (req, res) => {
 // @desc    Login User / Returning JWT Token
 // @access  Public
 router.post("/login", (req, res) => {
+
   const { errors, isValid } = validateLoginInput(req.body);
 
   // Check Validation
@@ -101,6 +103,7 @@ router.post("/login", (req, res) => {
             });
           }
         );
+        
       } else {
         errors.password = "Password incorrect";
         return res.status(400).json(errors);

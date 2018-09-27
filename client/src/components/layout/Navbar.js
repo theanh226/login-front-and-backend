@@ -2,33 +2,29 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../../actions/authActions";
+import * as Actions from './../../actions/authActions';
 
 class Navbar extends Component {
-  onLogoutClick(e) {
+  onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
-  }
+  };
 
   render() {
-    const { isAuthenticated, user } = this.props.auth;
+    const { isAuthenticated, currentUser } = this.props.auth;
 
     const authLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
-          <a
-            href=""
-            onClick={this.onLogoutClick.bind(this)}
-            className="nav-link"
-          >
+          <a href="" onClick={this.onLogoutClick} className="nav-link">
             <img
               className="rounded-circle"
-              src={user.avatar}
-              alt={user.name}
+              src={currentUser.avatar}
+              alt={currentUser.name}
               style={{ width: "25px", marginRight: "10px" }}
               title="You must have a Gravatar connected to your email to display an image"
             />
-            <span className="mr-4">{user.name}</span> 
+            <span className="mr-4">{currentUser.name}</span>
             Logout
           </a>
         </li>
@@ -91,7 +87,16 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logoutUser: () => {
+      dispatch(Actions.logoutUser());
+    }
+  }
+}
+
 export default connect(
   mapStateToProps,
-  { logoutUser }
+  mapDispatchToProps
 )(Navbar);

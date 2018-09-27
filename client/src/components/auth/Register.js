@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import classnames from "classnames";
 import { connect } from "react-redux";
-import { registerUser } from "../../actions/authActions";
+//import { registerUser } from "../../actions/authActions";
+import * as Actions from './../../actions/authActions';
 
 class Register extends Component {
   constructor() {
@@ -140,7 +141,22 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    registerUser: (newUser,changePage) => {
+      dispatch(Actions.registerUser(newUser,changePage))
+    }
+  }
+}
+
 export default connect(
   mapStateToProps,
-  { registerUser }
+  mapDispatchToProps
 )(withRouter(Register));
+
+
+// can use this method below to call action
+// export default connect(
+//   mapStateToProps,
+//   {registerUser}
+// )(withRouter(Register));
