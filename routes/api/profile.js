@@ -28,7 +28,7 @@ router.get(
     const errors = {};
 
     Profile.findOne({ currentUser: req.user.id })
-      .populate("currentUser", ["name", "avatar"])
+      .populate("currentUser", ["name", "email"])
       .then(profile => {
         if (!profile) {
           errors.noprofile = "There is no profile for this user";
@@ -140,11 +140,11 @@ router.post(
     if (req.body.linkedin) profileFields.social.linkedin = req.body.linkedin;
     if (req.body.instagram) profileFields.social.instagram = req.body.instagram;
 
-    Profile.findOne({ test: req.user.id }).then(profile => {
+    Profile.findOne({ currentUser: req.user.id }).then(profile => {
       if (profile) {
         // Update
         Profile.findOneAndUpdate(
-          { test: req.user.id },
+          { currentUser: req.user.id },
           { $set: profileFields },
           { new: true }
         ).then(profile => res.json(profile));
@@ -182,6 +182,7 @@ router.post(
     }
 
     Profile.findOne({ currentUser: req.user.id }).then(profile => {
+      
       const newExp = {
         title: req.body.title,
         company: req.body.company,
@@ -226,7 +227,7 @@ router.post(
         description: req.body.description
       };
 
-      // Add to exp array
+      // Add to education array
       profile.education.unshift(newEdu);
 
       profile.save().then(profile => res.json(profile));

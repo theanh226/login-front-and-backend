@@ -3,6 +3,9 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const ProfileSchema = new Schema({
+
+
+
   currentUser: {
     type: Schema.Types.ObjectId, //connecting with users Schema
     ref: "users" //connecting with users Schema
@@ -35,6 +38,9 @@ const ProfileSchema = new Schema({
   githubusername: {
     type: String
   },
+
+
+
   experience: [
     {
       title: {
@@ -64,6 +70,10 @@ const ProfileSchema = new Schema({
       }
     }
   ],
+
+
+
+
   education: [
     {
       school: {
@@ -94,6 +104,8 @@ const ProfileSchema = new Schema({
       }
     }
   ],
+
+  
   social: {
     youtube: {
       type: String

@@ -22,7 +22,6 @@ router.get("/test", (req, res) => res.json({ msg: "Users Works" }));
 // @desc    Register user
 // @access  Public
 router.post("/register", (req, res) => {
-
   const { errors, isValid } = validateRegisterInput(req.body);
 
   // Check Validation
@@ -66,7 +65,6 @@ router.post("/register", (req, res) => {
 // @desc    Login User / Returning JWT Token
 // @access  Public
 router.post("/login", (req, res) => {
-
   const { errors, isValid } = validateLoginInput(req.body);
 
   // Check Validation
@@ -103,7 +101,6 @@ router.post("/login", (req, res) => {
             });
           }
         );
-        
       } else {
         errors.password = "Password incorrect";
         return res.status(400).json(errors);
@@ -127,4 +124,29 @@ router.get(
   }
 );
 
+// @route   GET api/users/:id
+// @desc    Return user by id
+// @access  Private
+router.get(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    User.findById(req.params.id)
+      .then(user => res.json(user))
+      .catch(err => {
+        res.status(404).json({ userNotFound: "No User found with that ID" });
+      });
+  }
+);
+
+// @route   GET api/users/all
+// @desc    Return all user
+// @access  Private
+router.get("/", passport.authenticate("jwt", { session: false }), (req, res) => {
+  User.find()
+    .then(user => res.json(user))
+    .catch(err => {
+      res.status(404).json({ userNotFound: "No User founded" });
+    });
+});
 module.exports = router;
