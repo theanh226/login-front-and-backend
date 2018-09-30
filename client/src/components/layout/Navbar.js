@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import * as Actions from './../../actions/authActions';
+import * as Actions from "./../../actions/authActions";
+import * as ActionsProfile from "./../../actions/profileActions";
 
 class Navbar extends Component {
   onLogoutClick = e => {
     e.preventDefault();
+    this.props.clearCurrentProfile();
     this.props.logoutUser();
   };
 
@@ -64,7 +66,7 @@ class Navbar extends Component {
           <div className="collapse navbar-collapse" id="mobile-nav">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item">
-                <Link className="nav-link d-none" to="/profiles">
+                <Link className="nav-link " to="/dashboard">
                   {" "}
                   Developers
                 </Link>
@@ -87,14 +89,16 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     logoutUser: () => {
       dispatch(Actions.logoutUser());
+    },
+    clearCurrentProfile: () => {
+      dispatch(ActionsProfile.clearCurrentProfile());
     }
-  }
-}
+  };
+};
 
 export default connect(
   mapStateToProps,
