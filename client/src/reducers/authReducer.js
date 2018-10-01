@@ -1,5 +1,5 @@
 import * as Types from "../constant/Types";
-import isEmpty from '../validation/is-empty';
+import isEmpty from "../validation/is-empty";
 
 const initialState = {
   isAuthenticated: false,
@@ -12,8 +12,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         isAuthenticated: !isEmpty(action.infoCurrentUser),
-        currentUser: action.infoCurrentUser,
-        stateCurrent:state
+        currentUser: action.infoCurrentUser
       };
     default:
       return state;

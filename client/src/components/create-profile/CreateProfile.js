@@ -58,7 +58,7 @@ class CreateProfile extends Component {
       instagram: this.state.instagram
     };
 
-    this.props.createProfile(profileData, this.props.history);
+    this.props.createProfile(profileData, this.props.ry);
   }
 
   onChange(e) {
@@ -66,6 +66,7 @@ class CreateProfile extends Component {
   }
 
   render() {
+
     const { errors, displaySocialInputs } = this.state;
 
     let socialInputs;
@@ -76,7 +77,7 @@ class CreateProfile extends Component {
           <InputGroup
             placeholder="Twitter Profile URL"
             name="twitter"
-            icon="fab fa-twitter"
+            icon="fa fa-twitter"
             value={this.state.twitter}
             onChange={this.onChange}
             error={errors.twitter}
@@ -85,7 +86,7 @@ class CreateProfile extends Component {
           <InputGroup
             placeholder="Facebook Page URL"
             name="facebook"
-            icon="fab fa-facebook"
+            icon="fa fa-facebook"
             value={this.state.facebook}
             onChange={this.onChange}
             error={errors.facebook}
@@ -94,7 +95,7 @@ class CreateProfile extends Component {
           <InputGroup
             placeholder="Linkedin Profile URL"
             name="linkedin"
-            icon="fab fa-linkedin"
+            icon="fa fa-linkedin"
             value={this.state.linkedin}
             onChange={this.onChange}
             error={errors.linkedin}
@@ -103,7 +104,7 @@ class CreateProfile extends Component {
           <InputGroup
             placeholder="YouTube Channel URL"
             name="youtube"
-            icon="fab fa-youtube"
+            icon="fa fa-youtube"
             value={this.state.youtube}
             onChange={this.onChange}
             error={errors.youtube}
@@ -112,7 +113,7 @@ class CreateProfile extends Component {
           <InputGroup
             placeholder="Instagram Page URL"
             name="instagram"
-            icon="fab fa-instagram"
+            icon="fa fa-instagram"
             value={this.state.instagram}
             onChange={this.onChange}
             error={errors.instagram}
@@ -144,6 +145,7 @@ class CreateProfile extends Component {
                 Let's get some information to make your profile stand out
               </p>
               <small className="d-block pb-3">* = required fields</small>
+
               <form onSubmit={this.onSubmit}>
                 <TextFieldGroup
                   placeholder="* Profile Handle"
@@ -220,7 +222,7 @@ class CreateProfile extends Component {
                         displaySocialInputs: !prevState.displaySocialInputs
                       }));
                     }}
-                    className="btn btn-light"
+                    className="btn btn-info mr-2"
                   >
                     Add Social Network Links
                   </button>
