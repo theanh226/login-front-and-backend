@@ -16,6 +16,7 @@ import jwt_decode from "jwt-decode";
 import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRouter from "./common/PrivateRoute";
 import CreateProfile from "./components/create-profile/CreateProfile";
+import EditProfile from "./components/edit-profile/EditProfile";
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -30,7 +31,7 @@ if (localStorage.jwtToken) {
   if (decoded.exp < currentTime) {
     // Logout user
     store.dispatch(logoutUser());
-    // TODO: Clear current Profile
+    //Clear current Profile
     store.dispatch(clearCurrentProfile());
     // Redirect to login
     window.location.href = "/login";
@@ -44,14 +45,27 @@ class App extends Component {
           <div className="App">
             <Navbar />
             <Route exact path="/" component={Landing} />
-            <div className="container">
+            <div className="container pb-5 mb-5">
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/success" component={Successs} />
 
               <Switch>
                 <PrivateRouter exact path="/dashboard" component={Dashboard} />
-                <PrivateRouter exact path="/create-profile" component={CreateProfile} />
+              </Switch>
+              <Switch>
+                <PrivateRouter
+                  exact
+                  path="/create-profile"
+                  component={CreateProfile}
+                />
+              </Switch>
+              <Switch>
+                <PrivateRouter
+                  exact
+                  path="/edit-profile"
+                  component={EditProfile}
+                />
               </Switch>
             </div>
             <Footer />

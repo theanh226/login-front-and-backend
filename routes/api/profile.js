@@ -118,6 +118,7 @@ router.post(
 
     // Get fields
     const profileFields = {};
+
     profileFields.currentUser = req.user.id;
     if (req.body.handle) profileFields.handle = req.body.handle;
     if (req.body.company) profileFields.company = req.body.company;
@@ -148,11 +149,13 @@ router.post(
           { $set: profileFields },
           { new: true }
         ).then(profile => res.json(profile));
+        
       } else {
         // Create
 
         // Check if handle exists
         Profile.findOne({ handle: profileFields.handle }).then(profile => {
+          
           if (profile) {
             errors.handle = "That handle already exists";
             res.status(400).json(errors);
