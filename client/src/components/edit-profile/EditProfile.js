@@ -132,7 +132,7 @@ class CreateProfile extends Component {
           <InputGroup
             placeholder="Twitter Profile URL"
             name="twitter"
-            icon="fab fa-twitter"
+            icon="fa fa-twitter"
             value={this.state.twitter}
             onChange={this.onChange}
             error={errors.twitter}
@@ -141,7 +141,7 @@ class CreateProfile extends Component {
           <InputGroup
             placeholder="Facebook Page URL"
             name="facebook"
-            icon="fab fa-facebook"
+            icon="fa fa-facebook"
             value={this.state.facebook}
             onChange={this.onChange}
             error={errors.facebook}
@@ -150,7 +150,7 @@ class CreateProfile extends Component {
           <InputGroup
             placeholder="Linkedin Profile URL"
             name="linkedin"
-            icon="fab fa-linkedin"
+            icon="fa fa-linkedin"
             value={this.state.linkedin}
             onChange={this.onChange}
             error={errors.linkedin}
@@ -159,7 +159,7 @@ class CreateProfile extends Component {
           <InputGroup
             placeholder="YouTube Channel URL"
             name="youtube"
-            icon="fab fa-youtube"
+            icon="fa fa-youtube"
             value={this.state.youtube}
             onChange={this.onChange}
             error={errors.youtube}
@@ -168,7 +168,7 @@ class CreateProfile extends Component {
           <InputGroup
             placeholder="Instagram Page URL"
             name="instagram"
-            icon="fab fa-instagram"
+            icon="fa fa-instagram"
             value={this.state.instagram}
             onChange={this.onChange}
             error={errors.instagram}
@@ -276,7 +276,7 @@ class CreateProfile extends Component {
                         displaySocialInputs: !prevState.displaySocialInputs
                       }));
                     }}
-                    className="btn btn-light"
+                    className="btn btn-info"
                   >
                     Add Social Network Links
                   </button>
