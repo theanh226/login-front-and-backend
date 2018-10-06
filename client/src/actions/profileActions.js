@@ -29,7 +29,26 @@ export const getCurrentProfile = () => dispatch => {
     );
 };
 
-//get all profiles 
+// Get  profile by handle
+export const getProfileByHandle = handle => dispatch => {
+  dispatch(setProfileLoading());
+  axios
+    .get(`/api/profile/handle/${handle}`)
+    .then(res =>
+      dispatch({
+        type: GET_PROFILE,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_PROFILE,
+        payload: null
+      })
+    );
+};
+
+//get all profiles
 export const getAllProfile = () => dispatch => {
   dispatch(setProfileLoading());
   axios
@@ -159,7 +178,6 @@ export const deleteEducation = id => dispatch => {
     );
 };
 
-
 // get Exp by ID
 
 export const getEditExperience = id => dispatch => {
@@ -178,6 +196,3 @@ export const getEditExperience = id => dispatch => {
       })
     );
 };
-
-
-
