@@ -5,7 +5,8 @@ import {
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
   GET_ERRORS,
-  SET_CURRENT_USER
+  SET_CURRENT_USER,
+  GET_EXP_TO_EDIT
 } from "./../constant/Types";
 
 // Get current profile
@@ -102,20 +103,22 @@ export const addEducation = (eduData, history) => dispatch => {
 
 // Delete Experience
 export const deleteExperience = id => dispatch => {
-  axios
-    .delete(`/api/profile/experience/${id}`)
-    .then(res =>
-      dispatch({
-        type: GET_PROFILE,
-        payload: res.data
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
+  if (window.confirm("Are you sure? This can NOT be undone!")) {
+    axios
+      .delete(`/api/profile/experience/${id}`)
+      .then(res =>
+        dispatch({
+          type: GET_PROFILE,
+          payload: res.data
+        })
+      )
+      .catch(err =>
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        })
+      );
+  }
 };
 
 // Delete Education
@@ -135,3 +138,26 @@ export const deleteEducation = id => dispatch => {
       })
     );
 };
+
+
+// get Exp by ID
+
+export const getEditExperience = id => dispatch => {
+  axios
+    .get(`/api/profile/experience/${id}`)
+    .then(res =>
+      dispatch({
+        type: GET_EXP_TO_EDIT,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+
+

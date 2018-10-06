@@ -1,3 +1,5 @@
+var _ = require("lodash");
+
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
@@ -35,6 +37,27 @@ router.get(
           return res.status(404).json(errors);
         }
         res.json(profile);
+      })
+      .catch(err => res.status(404).json(err));
+  }
+);
+
+// @route   GET api/profile/experience/:exp_id
+// @desc    Delete experience from profile
+// @access  Private
+router.get(
+  "/experience/:exp_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Profile.findOne({ currentUser: req.user.id })
+      .then(profile => {
+        var currentProfile = profile.experience.filter(element => {
+          if (element._id.toString() === req.params.exp_id) {
+            return element;
+          }
+        });
+
+        res.json(currentProfile[0]);
       })
       .catch(err => res.status(404).json(err));
   }
@@ -79,6 +102,47 @@ router.get("/handle/:currentHandle", (req, res) => {
     .catch(err => res.status(404).json(err));
 });
 
+// @route   GET api/profile/experience/:exp_id
+// @desc    GET experience from profile
+// @access  Private
+router.post(
+  "/experience/update/:exp_id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const errors = {};
+    Profile.findOne({ currentUser: req.user.id }).then(data => {
+      var expNeedToUpdate = data.experience.filter(element => {
+        if (element._id.toString() === req.params.exp_id) {
+          return element;
+        }
+      });
+
+      const Index = data.experience
+        .map(item => item.id)
+        .indexOf(req.params.exp_id);
+
+      const update = {};
+      update["experience." + Index + ".title"] = req.body.title;
+      update["experience." + Index + ".company"] = req.body.company;
+      update["experience." + Index + ".location"] = req.body.location;
+      update["experience." + Index + ".from"] = req.body.from;
+      update["experience." + Index + ".to"] = req.body.to;
+      update["experience." + Index + ".current"] = req.body.current;
+      update["experience." + Index + ".description"] = req.body.description;
+
+      if (!expNeedToUpdate) {
+        errors.noprofile = "There is no exprerience for this user";
+        res.status(404).json(errors);
+      } else {
+        Profile.findOneAndUpdate(
+          { currentUser: req.user.id },
+          { $set: update },
+          { new: true }
+        ).then(newExp => res.json(newExp));
+      }
+    });
+  }
+);
 // @route   GET api/profile/user/:user_id
 // @desc    Get profile by user ID
 // @access  Public
@@ -149,13 +213,11 @@ router.post(
           { $set: profileFields },
           { new: true }
         ).then(profile => res.json(profile));
-        
       } else {
         // Create
 
         // Check if handle exists
         Profile.findOne({ handle: profileFields.handle }).then(profile => {
-          
           if (profile) {
             errors.handle = "That handle already exists";
             res.status(400).json(errors);
@@ -185,7 +247,6 @@ router.post(
     }
 
     Profile.findOne({ currentUser: req.user.id }).then(profile => {
-      
       const newExp = {
         title: req.body.title,
         company: req.body.company,

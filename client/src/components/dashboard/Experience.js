@@ -1,13 +1,21 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Moment from "react-moment";
-import { deleteExperience } from "./../../actions/profileActions";
+import {
+  deleteExperience,
+  getEditExperience
+} from "./../../actions/profileActions";
 
 class Experience extends Component {
-  onDeleteClick(id) {
+  onDeleteClick = id => {
     this.props.deleteExperience(id);
-  }
+  };
+
+  onEditExp = id => {
+    this.props.getEditExperience(id);
+  };
 
   render() {
     const experience = this.props.experience.map(exp => (
@@ -22,15 +30,22 @@ class Experience extends Component {
             <Moment format="YYYY/MM/DD">{exp.to}</Moment>
           )}
         </td>
+
         <td>
           <button
-            onClick={this.onDeleteClick.bind(this, exp._id)}
+            onClick={() => this.onDeleteClick(exp._id)}
             className="btn btn-danger mr-2"
           >
             Delete
           </button>
-
-          <button className="btn btn-info">Edit</button>
+          <Link to="/edit-experience">
+            <button
+              className="btn btn-info"
+              onClick={() => this.onEditExp(exp._id)}
+            >
+              Edit
+            </button>
+          </Link>
         </td>
       </tr>
     ));
@@ -54,10 +69,11 @@ class Experience extends Component {
 }
 
 Experience.propTypes = {
-  deleteExperience: PropTypes.func.isRequired
+  deleteExperience: PropTypes.func.isRequired,
+  getEditExperience: PropTypes.func.isRequired
 };
 
 export default connect(
   null,
-  { deleteExperience }
+  { deleteExperience, getEditExperience }
 )(Experience);

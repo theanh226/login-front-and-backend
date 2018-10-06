@@ -17,8 +17,9 @@ import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRouter from "./common/PrivateRoute";
 import CreateProfile from "./components/create-profile/CreateProfile";
 import EditProfile from "./components/edit-profile/EditProfile";
-import AddEducation from './components/add-credentials/AddEducation';
-import AddExperience from './components/add-credentials/AddExperience';
+import AddEducation from "./components/add-credentials/AddEducation";
+import AddExperience from "./components/add-credentials/AddExperience";
+import Editxperience from "./components/edit-experience/Editxperience";
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -52,14 +53,28 @@ class App extends Component {
               <Route exact path="/register" component={Register} />
               <Route exact path="/success" component={Successs} />
 
-
               <Switch>
-                <PrivateRouter exact path="/add-experience" component={AddExperience} />
+                <PrivateRouter
+                  exact
+                  path="/edit-experience"
+                  component={Editxperience}
+                />
               </Switch>
 
+              <Switch>
+                <PrivateRouter
+                  exact
+                  path="/add-experience"
+                  component={AddExperience}
+                />
+              </Switch>
 
               <Switch>
-                <PrivateRouter exact path="/add-education" component={AddEducation} />
+                <PrivateRouter
+                  exact
+                  path="/add-education"
+                  component={AddEducation}
+                />
               </Switch>
 
               <Switch>
@@ -67,7 +82,11 @@ class App extends Component {
               </Switch>
 
               <Switch>
-                <PrivateRouter exact path="/create-profile" component={CreateProfile}/>
+                <PrivateRouter
+                  exact
+                  path="/create-profile"
+                  component={CreateProfile}
+                />
               </Switch>
 
               <Switch>
