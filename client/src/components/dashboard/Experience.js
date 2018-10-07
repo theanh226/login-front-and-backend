@@ -38,7 +38,7 @@ class Experience extends Component {
           >
             Delete
           </button>
-          <Link to="/edit-experience">
+          <Link to={`/edit-experience/${exp._id}`}>
             <button
               className="btn btn-info"
               onClick={() => this.onEditExp(exp._id)}

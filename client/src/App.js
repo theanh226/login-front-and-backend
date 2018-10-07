@@ -69,7 +69,7 @@ class App extends Component {
               <Switch>
                 <PrivateRouter
                   exact
-                  path="/edit-experience"
+                  path="/edit-experience/:id"
                   component={Editxperience}
                 />
               </Switch>

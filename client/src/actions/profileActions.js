@@ -48,6 +48,25 @@ export const getProfileByHandle = handle => dispatch => {
     );
 };
 
+// get Exp by ID
+export const getEditExperience = id => dispatch => {
+  dispatch(setProfileLoading());
+  axios
+    .get(`/api/profile/experience/${id}`)
+    .then(res =>
+      dispatch({
+        type: GET_EXP_TO_EDIT,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_EXP_TO_EDIT,
+        payload: null
+      })
+    );
+};
+
 //get all profiles
 export const getAllProfile = () => dispatch => {
   dispatch(setProfileLoading());
@@ -162,33 +181,29 @@ export const deleteExperience = id => dispatch => {
 
 // Delete Education
 export const deleteEducation = id => dispatch => {
-  axios
-    .delete(`/api/profile/education/${id}`)
-    .then(res =>
-      dispatch({
-        type: GET_PROFILE,
-        payload: res.data
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
+  if (window.confirm("Are you sure? This can NOT be undone!")) {
+    axios
+      .delete(`/api/profile/education/${id}`)
+      .then(res =>
+        dispatch({
+          type: GET_PROFILE,
+          payload: res.data
+        })
+      )
+      .catch(err =>
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        })
+      );
+  }
 };
 
-// get Exp by ID
-
-export const getEditExperience = id => dispatch => {
+//Edit Experience
+export const editExp = (id, newExp, history) => dispatch => {
   axios
-    .get(`/api/profile/experience/${id}`)
-    .then(res =>
-      dispatch({
-        type: GET_EXP_TO_EDIT,
-        payload: res.data
-      })
-    )
+    .post(`/api/profile/experience/update/${id}`, newExp)
+    .then(res => history.push("/dashboard"))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
