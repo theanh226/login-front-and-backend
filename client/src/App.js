@@ -22,6 +22,7 @@ import AddExperience from "./components/add-credentials/AddExperience";
 import Editxperience from "./components/edit-experience/Editxperience";
 import Profiles from './components/profiles/Profiles';
 import Profile from './components/profile/Profile';
+import NotFound from './components/not-found/NotFound';
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -109,6 +110,7 @@ class App extends Component {
                   component={EditProfile}
                 />
               </Switch>
+              <Route exact path="*" component={NotFound} />
             </div>
             <Footer />
           </div>
