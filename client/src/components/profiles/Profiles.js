@@ -11,6 +11,7 @@ class Profiles extends Component {
   }
   render() {
     const { profiles, loading } = this.props.profile;
+    const {auth} = this.props.auth;
     let profileItems;
 
     if (profiles === null || loading) {
@@ -49,7 +50,8 @@ Profiles.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile
+  profile: state.profile,
+  auth: state.auth
 });
 
 export default connect(
