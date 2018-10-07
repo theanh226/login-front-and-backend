@@ -110,7 +110,7 @@ class App extends Component {
                   component={EditProfile}
                 />
               </Switch>
-              <Route exact path="*" component={NotFound} />
+              <Route exact path="/not-found" component={NotFound} />
             </div>
             <Footer />
           </div>
