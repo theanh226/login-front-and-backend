@@ -11,7 +11,7 @@ import { getProfileByHandle } from "./../../actions/profileActions";
 
 export class Profile extends Component {
   static propTypes = {
-    prop: PropTypes,
+    profile: PropTypes.object.isRequired,
     getProfileByHandle: PropTypes.func.isRequired
   };
 
@@ -43,9 +43,9 @@ export class Profile extends Component {
             education={profile.education}
             experience={profile.experience}
           />
-          {profile.githubusername ? (
+          {profile.githubusername.length > 4 ? (
             <ProfileGithub username={profile.githubusername} />
-          ) : null}
+          ) :  null }
         </div>
       );
     }

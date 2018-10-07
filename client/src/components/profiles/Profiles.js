@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Spinner from "./../../common/Spinner";
 import { getAllProfile } from "./../../actions/profileActions";
-import ProfileItem from './ProfilesItem';
+import ProfileItem from "./ProfilesItem";
 
 class Profiles extends Component {
   componentDidMount() {
@@ -11,7 +11,7 @@ class Profiles extends Component {
   }
   render() {
     const { profiles, loading } = this.props.profile;
-    const {auth} = this.props.auth;
+
     let profileItems;
 
     if (profiles === null || loading) {
@@ -50,8 +50,7 @@ Profiles.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile,
-  auth: state.auth
+  profile: state.profile
 });
 
 export default connect(

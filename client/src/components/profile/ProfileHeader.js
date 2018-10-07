@@ -4,7 +4,7 @@ import isEmpty from "./../../validation/is-empty";
 
 export class ProfileHeader extends Component {
   static propTypes = {
-    prop: PropTypes
+    profile: PropTypes.object.isRequired
   };
 
   render() {
